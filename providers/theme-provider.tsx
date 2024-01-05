@@ -5,7 +5,7 @@ import { type ThemeProviderProps } from "next-themes/dist/types";
 
 function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
-    <NextThemesProvider enableSystem={false} storageKey="jotion-theme" attribute="class" defaultTheme="dark" {...props}>
+    <NextThemesProvider enableSystem={false} storageKey="supabase-chat-theme" attribute="class" defaultTheme="dark" {...props}>
       {children}
     </NextThemesProvider>
   );
