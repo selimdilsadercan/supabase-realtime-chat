@@ -38,7 +38,7 @@ export default function ChatInput() {
   return (
     <div className="p-5">
       <Input
-        placeholder="send message"
+        placeholder="Send message"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSendMessage(e.currentTarget.value);
