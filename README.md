@@ -31,6 +31,10 @@
 - [x] paste this Client ID and Client Secret to enable google auth at supabase
 - [x] add /auth/callback/route.ts
 
+- [x] create User table and connect User id to auth user id
+- [x] create create_user_on_signup function: returntype = trigger, defination=/lib/supabase/functions.txt, showadvanced -> security definer
+- [x] run create_user_on_signup trigger in sql editor, now it is showing in trigger -> auth
+
 ---
 
 - create supabase for both user management and database
