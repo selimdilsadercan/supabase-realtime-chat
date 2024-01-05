@@ -1,4 +1,4 @@
-- database:
+- database: supabase, password: GG9ZIuCqAoRjVjke
 
 - [x] "npx create-next-app@latest {project-name}" to initialize nextjs
 - [x] change /app/layout, delete assets in /public, change metadata
@@ -17,21 +17,6 @@
 - [x] create ThemeToggle.tsx switch
 - [x] add suppressHydrationWarning to html tag in /app/layout.tsx
 
-- [x] "npm i react-hot-toast"
+- [x] "npx shadcn-ui@latest add sonner"
 - [x] add /providers/toast-provider.tsx
 - [x] add ToastProvider next to {children} in /app/layout.tsx
-
-- [ ] "npm i axios"
-- [ ] "npm i @tanstack/react-query"
-- [ ] add providers/query-provider.tsx and wrap layout.tsx's children
-
-- [ ] create coachroachdb cluster and rename cluster
-- [ ] press connect -> create new sql user -> add sql username -> press next -> copy general connection string -> paste to .env as DATABASE_URL
-- [ ] "npm i -D prisma"
-- [ ] "npm i @prisma/client"
-- [ ] "npx prisma init"
-- [ ] create lib/db.ts
-- [ ] add "postinstall": "prisma generate" to package.json's scripts field
-- [ ] change datasource db -> provider to cockroachdb in schema.prisma
-- [ ] note: "npx prisma generate" and "npx prisma db push" whenever schemas have changed
-- [ ] note: "npx prisma studio" to manage content
