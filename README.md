@@ -27,11 +27,12 @@
 - [x] copy project settings -> project api keys -> anon key as NEXT_PUBLIC_SUPABASE_ANON_KEY
 - [x] add /lib/supabase
 - [x] add /middleware.ts
+- [x] create policies whenever new table created except users
+
 - [x] create OAuth consent screen adn create new OAuth ClintID credential at google developer console -> APIs & Services
 - [x] paste this Client ID and Client Secret to enable google auth at supabase
 - [x] create Github OAuth App on Settings -> Developer Settings -> OAuth Apps -> New OAuth App (copy callback url from supabase)
 - [x] add /auth/callback/route.ts
-
 - [x] create users table and connect user->id to auth->user->id
 - [x] create create_user_on_signup function: returntype = trigger, defination=/lib/supabase/functions.txt, showadvanced -> security definer
 - [x] run create_user_on_signup trigger in sql editor, now it is showing in trigger -> auth
