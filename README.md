@@ -29,7 +29,7 @@
 - [x] add /lib/supabase
 - [x] add /middleware.ts
 - [x] create policies whenever new table created except users
-- [x] "npx supabase gen types typescript --project-id "{project_reference}" --schema public > types/supabase.ts", general settings -> reference id
+- [x] "npx supabase gen types typescript --project-id "{project_reference}" --schema public > supabase/database.ts", general settings -> reference id
 
 - [x] create OAuth consent screen adn create new OAuth ClintID credential at google developer console -> APIs & Services
 - [x] paste this Client ID and Client Secret to enable google auth at supabase
@@ -38,6 +38,10 @@
 - [x] create users table and connect user->id to auth->user->id
 - [x] create create_user_on_signup function: returntype = trigger, defination=/lib/supabase/functions.txt, showadvanced -> security definer
 - [x] run create_user_on_signup trigger in sql editor, now it is showing in trigger -> auth
+
+- [x] "npm i uuid"
+- [x] "npm i -D @types/uuid"
+- [x] import { v4 as uuid } from "uuid";
 
 ---
 

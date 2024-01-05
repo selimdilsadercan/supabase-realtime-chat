@@ -14,3 +14,30 @@ END;
 
 create_user_on_signup trigger:
 create trigger create_user_on_signup after insert on auth.users for each row execute function create_user_on_signup();
+
+--- 
+
+policy-select:
+CREATE POLICY "Enable read access for all users" ON "public"."messages"
+AS PERMISSIVE FOR SELECT
+TO authenticated
+USING (true)
+
+policy-insert:
+CREATE POLICY "Enable insert for authenticated users only" ON "public"."messages"
+AS PERMISSIVE FOR INSERT
+TO authenticated
+WITH CHECK (send_by = auth.uid() and created_at = now())
+
+policy-delete:
+CREATE POLICY "Enable delete for users based on user_id" ON "public"."messages"
+AS PERMISSIVE FOR DELETE
+TO authenticated
+USING (auth.uid() = send_by)
+
+policy-update:
+CREATE POLICY "Enable update for users based on email" ON "public"."messages"
+AS PERMISSIVE FOR UPDATE
+TO authenticated
+USING (auth.uid() = send_by)
+WITH CHECK (auth.uid() = send_by)
