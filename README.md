@@ -20,3 +20,17 @@
 - [x] "npx shadcn-ui@latest add sonner"
 - [x] add /providers/toast-provider.tsx
 - [x] add ToastProvider next to {children} in /app/layout.tsx
+
+- [x] create new supabase project
+- [x] "npm i @supabase/ssr @supabase/supabase-js"
+- [x] copy project settings -> project url as NEXT_PUBLIC_SUPABASE_URL
+- [x] copy project settings -> project api keys -> anon key as NEXT_PUBLIC_SUPABASE_ANON_KEY
+- [x] add /lib/supabase
+- [x] add /middleware.ts
+- [x] create OAuth consent screen adn create new OAuth ClintID credential at google developer console -> APIs & Services
+- [x] paste this Client ID and Client Secret to enable google auth at supabase
+- [x] add /auth/callback/route.ts
+
+---
+
+- create supabase for both user management and database
