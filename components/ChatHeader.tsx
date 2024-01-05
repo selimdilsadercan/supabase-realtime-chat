@@ -17,7 +17,7 @@ function ChatHeader({ user }: Props) {
     const supabase = supabaseClient();
 
     supabase.auth.signInWithOAuth({
-      provider: "google",
+      provider: "github",
       options: { redirectTo: location.origin + "/auth/callback" }
     });
   };

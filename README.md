@@ -1,4 +1,4 @@
-- database: supabase, password: GG9ZIuCqAoRjVjke
+- database: supabase, password: y64XEc2xpw8qIlqV
 
 - [x] "npx create-next-app@latest {project-name}" to initialize nextjs
 - [x] change /app/layout, delete assets in /public, change metadata
@@ -29,9 +29,10 @@
 - [x] add /middleware.ts
 - [x] create OAuth consent screen adn create new OAuth ClintID credential at google developer console -> APIs & Services
 - [x] paste this Client ID and Client Secret to enable google auth at supabase
+- [x] create Github OAuth App on Settings -> Developer Settings -> OAuth Apps -> New OAuth App (copy callback url from supabase)
 - [x] add /auth/callback/route.ts
 
-- [x] create User table and connect User id to auth user id
+- [x] create users table and connect user->id to auth->user->id
 - [x] create create_user_on_signup function: returntype = trigger, defination=/lib/supabase/functions.txt, showadvanced -> security definer
 - [x] run create_user_on_signup trigger in sql editor, now it is showing in trigger -> auth
 
