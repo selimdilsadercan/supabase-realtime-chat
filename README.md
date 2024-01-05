@@ -34,3 +34,4 @@
 ---
 
 - create supabase for both user management and database
+- make the app realtime with zustand and useEffects

@@ -4,7 +4,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Database } from "../types/supabase";
 
-function server() {
+function supabaseServer() {
   const cookieStore = cookies();
 
   return createServerClient<Database>(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
@@ -16,4 +16,4 @@ function server() {
   });
 }
 
-export default server;
+export default supabaseServer;
