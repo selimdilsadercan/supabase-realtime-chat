@@ -1,4 +1,4 @@
-import supabaseServer from "@/lib/supabase/server";
+import supabaseServer from "@/supabase/server";
 import ChatAbout from "@/components/ChatAbout";
 import ChatHeader from "@/components/ChatHeader";
 import ChatInput from "@/components/ChatInput";

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
-import supabaseClient from "@/lib/supabase/client";
+import supabaseClient from "@/supabase/client";
 import ChatPresence from "./ChatPresence";
 
 interface Props {

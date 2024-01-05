@@ -23,11 +23,13 @@
 
 - [x] create new supabase project
 - [x] "npm i @supabase/ssr @supabase/supabase-js"
+- [x] "npm i -D supabase@latest", "npx supabase login"
 - [x] copy project settings -> project url as NEXT_PUBLIC_SUPABASE_URL
 - [x] copy project settings -> project api keys -> anon key as NEXT_PUBLIC_SUPABASE_ANON_KEY
 - [x] add /lib/supabase
 - [x] add /middleware.ts
 - [x] create policies whenever new table created except users
+- [x] "npx supabase gen types typescript --project-id "{project_reference}" --schema public > types/supabase.ts", general settings -> reference id
 
 - [x] create OAuth consent screen adn create new OAuth ClintID credential at google developer console -> APIs & Services
 - [x] paste this Client ID and Client Secret to enable google auth at supabase
