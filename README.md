@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+- database:
 
-## Getting Started
+- [x] "npx create-next-app@latest {project-name}" to initialize nextjs
+- [x] change /app/layout, delete assets in /public, change metadata
+- [x] remove /app/page.tsx with balance page
+- [x] create /.env file, add .env to /.gitignore
+- [x] copy /.prettierrc
 
-First, run the development server:
+- [x] "npx shadcn-ui@latest init" to initialize shadcn
+- [x] html, body, :root { height: 100% } thing at /app/globals.css
+- [x] "npx shadcn-ui@latest add button" to add elements
+- [x] choose a color palette from shadcn and change /app/globals.css
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [x] "npm install next-themes"
+- [x] add /providers/theme-provider.tsx and wrap /app/layout.tsx's {children} using alt+w
+- [x] create ThemeToggle.tsx switch
+- [x] add suppressHydrationWarning to html tag in /app/layout.tsx
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [ ] "npm i axios"
+- [ ] "npm i @tanstack/react-query"
+- [ ] add providers/query-provider.tsx and wrap layout.tsx's children
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ ] create coachroachdb cluster and rename cluster
+- [ ] press connect -> create new sql user -> add sql username -> press next -> copy general connection string -> paste to .env as DATABASE_URL
+- [ ] "npm i -D prisma"
+- [ ] "npm i @prisma/client"
+- [ ] "npx prisma init"
+- [ ] create lib/db.ts
+- [ ] add "postinstall": "prisma generate" to package.json's scripts field
+- [ ] change datasource db -> provider to cockroachdb in schema.prisma
+- [ ] note: "npx prisma generate" and "npx prisma db push" whenever schemas have changed
+- [ ] note: "npx prisma studio" to manage content
