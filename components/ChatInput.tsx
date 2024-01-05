@@ -30,7 +30,7 @@ function ChatInput() {
       send_by: user?.id,
       is_edit: false,
       created_at: new Date().toISOString(),
-      user: {
+      users: {
         id: user?.id,
         avatar_url: user?.user_metadata.avatar_url,
         created_at: new Date().toISOString(),

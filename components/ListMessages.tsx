@@ -1,56 +1,61 @@
 "use client";
 
+import { useMessageStore } from "@/hooks/useMessageStore";
 import { ArrowDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { DeleteAlert, EditAlert } from "./MessageActions";
+import supabaseClient from "@/supabase/client";
+import Message from "./Message";
 
-export default function ListMessages() {
+function ListMessages() {
   const scrollRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const [userScrolled, setUserScrolled] = useState(false);
   const [notification, setNotification] = useState(0);
+  const supabase = supabaseClient();
 
-  // const { messages, addMessage, optimisticIds, optimisticDeleteMessage, optimisticUpdateMessage } = useMessage((state) => state);
+  const { messages, addMessage, optimisticIds, optimisticDeleteMessage, optimisticUpdateMessage } = useMessageStore((state) => state);
 
-  // const supabase = supabaseBrowser();
-  // useEffect(() => {
-  //   const channel = supabase
-  //     .channel("chat-room")
-  //     .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, async (payload) => {
-  //       if (!optimisticIds.includes(payload.new.id)) {
-  //         const { error, data } = await supabase.from("users").select("*").eq("id", payload.new.send_by).single();
-  //         if (error) {
-  //           toast.error(error.message);
-  //         } else {
-  //           const newMessage = {
-  //             ...payload.new,
-  //             users: data
-  //           };
-  //           addMessage(newMessage as Imessage);
-  //         }
-  //       }
-  //       const scrollContainer = scrollRef.current;
-  //       if (scrollContainer.scrollTop < scrollContainer.scrollHeight - scrollContainer.clientHeight - 10) {
-  //         setNotification((current) => current + 1);
-  //       }
-  //     })
-  //     .on("postgres_changes", { event: "DELETE", schema: "public", table: "messages" }, (payload) => {
-  //       optimisticDeleteMessage(payload.old.id);
-  //     })
-  //     .on("postgres_changes", { event: "UPDATE", schema: "public", table: "messages" }, (payload) => {
-  //       optimisticUpdateMessage(payload.new as Imessage);
-  //     })
-  //     .subscribe();
+  useEffect(() => {
+    const channel = supabase
+      .channel("chat-room")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, async (payload) => {
+        if (!optimisticIds.includes(payload.new.id)) {
+          const { error, data } = await supabase.from("users").select("*").eq("id", payload.new.send_by).single();
+          if (error) {
+            toast.error(error.message);
+          } else {
+            const newMessage = {
+              ...payload.new,
+              users: data
+            };
+            addMessage(newMessage as Message);
+          }
+        }
+        const scrollContainer = scrollRef.current;
+        if (scrollContainer.scrollTop < scrollContainer.scrollHeight - scrollContainer.clientHeight - 10) {
+          setNotification((current) => current + 1);
+        }
+      })
+      .on("postgres_changes", { event: "DELETE", schema: "public", table: "messages" }, (payload) => {
+        optimisticDeleteMessage(payload.old.id);
+      })
+      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "messages" }, (payload) => {
+        optimisticUpdateMessage(payload.new as Message);
+      })
+      .subscribe();
 
-  //   return () => {
-  //     channel.unsubscribe();
-  //   };
-  // }, [messages]);
+    return () => {
+      channel.unsubscribe();
+    };
+  }, [messages]);
 
-  // useEffect(() => {
-  //   const scrollContainer = scrollRef.current;
-  //   if (scrollContainer && !userScrolled) {
-  //     scrollContainer.scrollTop = scrollContainer.scrollHeight;
-  //   }
-  // }, [messages]);
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (scrollContainer && !userScrolled) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
+  }, [messages]);
 
   const handleOnScroll = () => {
     const scrollContainer = scrollRef.current;
@@ -72,13 +77,13 @@ export default function ListMessages() {
       <div className="flex-1 flex flex-col p-5 h-full overflow-y-auto" ref={scrollRef} onScroll={handleOnScroll}>
         <div className="flex-1 pb-5 ">{/* <LoadMoreMessages /> */}</div>
         <div className=" space-y-7">
-          {/* {messages.map((value, index) => {
+          {messages.map((value, index) => {
             return <Message key={index} message={value} />;
-          })} */}
+          })}
         </div>
 
-        {/* <DeleteAlert /> */}
-        {/* <EditAlert /> */}
+        <DeleteAlert />
+        <EditAlert />
       </div>
       {userScrolled && (
         <div className=" absolute bottom-20 w-full">
@@ -100,3 +105,5 @@ export default function ListMessages() {
     </>
   );
 }
+
+export default ListMessages;

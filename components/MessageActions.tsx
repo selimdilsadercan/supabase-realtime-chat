@@ -1,24 +1,28 @@
 "use client";
+
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"; //prettier-ignore
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useRef } from "react";
+import { useMessageStore } from "@/hooks/useMessageStore";
+import { Message } from "@/types";
+import { toast } from "sonner";
+import supabaseClient from "@/supabase/client";
 
 export function DeleteAlert() {
-  // const actionMessage = useMessage((state) => state.actionMessage);
-  // const optimisticDeleteMessage = useMessage((state) => state.optimisticDeleteMessage);
+  const actionMessage = useMessageStore((state) => state.actionMessage);
+  const optimisticDeleteMessage = useMessageStore((state) => state.optimisticDeleteMessage);
 
   const handleDeleteMessage = async () => {
-    // const supabase = supabaseBrowser();
-    // optimisticDeleteMessage(actionMessage?.id!);
-    // const { error } = await supabase.from("messages").delete().eq("id", actionMessage?.id!);
-    // if (error) {
-    //   toast.error(error.message);
-    // } else {
-    //   toast.success("Successfully delete a message");
-    // }
+    const supabase = supabaseClient();
+    optimisticDeleteMessage(actionMessage?.id!);
+    const { error } = await supabase.from("messages").delete().eq("id", actionMessage?.id!);
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Successfully delete a message");
+    }
   };
 
   return (
@@ -43,31 +47,32 @@ export function DeleteAlert() {
 }
 
 export function EditAlert() {
-  // const actionMessage = useMessage((state) => state.actionMessage);
-  // const optimisticUpdateMessage = useMessage((state) => state.optimisticUpdateMessage);
+  const actionMessage = useMessageStore((state) => state.actionMessage);
+  const optimisticUpdateMessage = useMessageStore((state) => state.optimisticUpdateMessage);
 
   const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const handleEdit = async () => {
-    // const supabase = supabaseBrowser();
-    // const text = inputRef.current.value.trim();
-    // if (text) {
-    //   optimisticUpdateMessage({
-    //     ...actionMessage,
-    //     text,
-    //     is_edit: true
-    //   } as Imessage);
-    //   const { error } = await supabase.from("messages").update({ text, is_edit: true }).eq("id", actionMessage?.id!);
-    //   if (error) {
-    //     toast.error(error.message);
-    //   } else {
-    //     toast.success("Update Successfully");
-    //   }
-    //   document.getElementById("trigger-edit")?.click();
-    // } else {
-    //   document.getElementById("trigger-edit")?.click();
-    //   document.getElementById("trigger-delete")?.click();
-    // }
+    const supabase = supabaseClient();
+    const text = inputRef.current.value.trim();
+
+    if (!text) {
+      document.getElementById("trigger-edit")?.click();
+      document.getElementById("trigger-delete")?.click();
+      return;
+    }
+
+    optimisticUpdateMessage({
+      ...actionMessage,
+      text,
+      is_edit: true
+    } as Message);
+    const { error } = await supabase.from("messages").update({ text, is_edit: true }).eq("id", actionMessage?.id!);
+
+    if (error) return toast.error(error.message);
+    toast.success("Update Successfully");
+
+    document.getElementById("trigger-edit")?.click();
   };
 
   return (
@@ -79,7 +84,7 @@ export function EditAlert() {
         <DialogHeader>
           <DialogTitle>Edit Message</DialogTitle>
         </DialogHeader>
-        {/* <Input defaultValue={actionMessage?.text} ref={inputRef} /> */}
+        <Input defaultValue={actionMessage?.text} ref={inputRef} />
         <DialogFooter>
           <Button type="submit" onClick={handleEdit}>
             Save changes

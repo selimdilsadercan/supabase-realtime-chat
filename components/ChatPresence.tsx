@@ -1,36 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useUserStore } from "@/hooks/useUserStore";
+import supabaseClient from "@/supabase/client";
+import { useEffect, useState } from "react";
 
 function ChatPresence() {
-  // const user = useUser((state) => state.user);
-  // const supabase = supabaseBrowser();
+  const user = useUserStore((state) => state.user);
+  const supabase = supabaseClient();
   const [onlineUsers, setOnlineUsers] = useState(0);
 
-  // useEffect(() => {
-  //   const channel = supabase.channel("room1");
-  //   channel
-  //     .on("presence", { event: "sync" }, () => {
-  //       const userIds = [];
-  //       for (const id in channel.presenceState()) {
-  //         // @ts-ignore
-  //         userIds.push(channel.presenceState()[id][0].user_id);
-  //       }
-  //       setOnlineUsers([...new Set(userIds)].length);
-  //     })
-  //     .subscribe(async (status) => {
-  //       if (status === "SUBSCRIBED") {
-  //         await channel.track({
-  //           online_at: new Date().toISOString(),
-  //           user_id: user?.id
-  //         });
-  //       }
-  //     });
-  // }, [user]);
+  useEffect(() => {
+    const channel = supabase.channel("room1");
+    channel
+      .on("presence", { event: "sync" }, () => {
+        const userIds = [];
+        for (const id in channel.presenceState()) {
+          // @ts-ignore
+          userIds.push(channel.presenceState()[id][0].user_id);
+        }
+        setOnlineUsers([...new Set(userIds)].length);
+      })
+      .subscribe(async (status) => {
+        if (status === "SUBSCRIBED") {
+          await channel.track({
+            online_at: new Date().toISOString(),
+            user_id: user?.id
+          });
+        }
+      });
+  }, [user]);
 
-  // if (!user) {
-  //   return <div className=" h-3 w-1"></div>;
-  // }
+  if (!user) {
+    return <div className=" h-3 w-1"></div>;
+  }
 
   return (
     <div className="flex items-center gap-1">
