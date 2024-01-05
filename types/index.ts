@@ -3,7 +3,7 @@ export type Message = {
   is_edit: boolean;
   send_by: string;
   text: string;
-  users: User[] | null;
+  user: User | null;
   created_at: string;
 };
 
