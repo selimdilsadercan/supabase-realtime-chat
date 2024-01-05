@@ -13,8 +13,13 @@
 
 - [x] "npm install next-themes"
 - [x] add /providers/theme-provider.tsx and wrap /app/layout.tsx's {children} using alt+w
+- [x] change providers's storageKey
 - [x] create ThemeToggle.tsx switch
 - [x] add suppressHydrationWarning to html tag in /app/layout.tsx
+
+- [x] "npm i react-hot-toast"
+- [x] add /providers/toast-provider.tsx
+- [x] add ToastProvider next to {children} in /app/layout.tsx
 
 - [ ] "npm i axios"
 - [ ] "npm i @tanstack/react-query"
