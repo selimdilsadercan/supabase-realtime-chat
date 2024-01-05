@@ -2,27 +2,29 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { User } from "@supabase/supabase-js";
+import supabaseClient from "@/lib/supabase/client";
 import ChatPresence from "./ChatPresence";
 
 interface Props {
-  // user: User | undefined;
-  user: any;
+  user: User | undefined;
 }
 
 function ChatHeader({ user }: Props) {
   const router = useRouter();
 
-  const handleLoginWithGithub = () => {
-    //   const supabase = supabaseBrowser();
-    //   supabase.auth.signInWithOAuth({
-    //     provider: "github",
-    //     options: { redirectTo: location.origin + "/auth/callback" }
-    //   });
+  const handleLoginWithGoogle = () => {
+    const supabase = supabaseClient();
+
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: location.origin + "/auth/callback" }
+    });
   };
 
   const handleLogout = async () => {
-    // const supabase = supabaseBrowser();
-    // await supabase.auth.signOut();
+    const supabase = supabaseClient();
+    await supabase.auth.signOut();
     router.refresh();
   };
 
@@ -34,7 +36,7 @@ function ChatHeader({ user }: Props) {
           <ChatPresence />
         </div>
         {user && <Button onClick={handleLogout}>Logout</Button>}
-        {!!user && <Button onClick={handleLoginWithGithub}>Login</Button>}
+        {!user && <Button onClick={handleLoginWithGoogle}>Login</Button>}
       </div>
     </div>
   );
